@@ -1,0 +1,17 @@
+options validvarname=any; /*한글변수명사용 가능*/
+
+data ex;	
+input idno  $ name $ team $ strtwght endwght; /*data input method 변수명 뒤에 $로쓰면 문자로 인식*/
+cards;	
+1023 홍  red 189 165
+1049 신 yellow 145 124 
+; 
+run;
+
+data family3;
+input idno  name $ sex $ age;
+cards;
+1010 민 여 65 
+1011 장 남 45
+;
+run;
