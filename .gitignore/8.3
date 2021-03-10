@@ -26,12 +26,10 @@ cards;
 ;
 run;
 
-libname KYH "C:\sa";  /*이름 이니셜로 library 만들기*/
 
 data Kyh.data_txt;   /*실습 data.xlsx 외부데이터 불러와서 자신의 이니셜 라이브러리에 저장*/
-infile "C:\Users\OWNER\Downloads\data.txt"
-input idno $ name $ team $ strtwght endwght
-;
+infile "C:\Users\OWNER\Downloads\data.txt";
+input idno $ name $ team $ strtwght endwght;
 run;
 
 proc import datafile="C:\Users\OWNER\Downloads\data.csv"
