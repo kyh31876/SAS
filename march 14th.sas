@@ -40,3 +40,14 @@ proc import datafile="C:\Users\OWNER\Downloads\실습DATA.xlsx"
 out=kyh.data_xlsx replace dbms=xlsx;
 sheet="데이터2019";
 run;
+
+
+
+data smap1;  /*만명중 50명을 뽑는다 seed number 0320*/
+do id=1 to 10000;
+output; 
+end;
+run;
+
+proc surveyselect data=smap1 method=srs n=50 out= samp2 seed=0320;
+run;
