@@ -49,7 +49,7 @@ cards;
 ;
 run;
 
-proc surveymeans data=ex total= 484; /*total */
+proc surveymeans data=ex total= 484; /*total 모집단의수  */
 var y; 
 run;
 
