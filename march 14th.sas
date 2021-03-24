@@ -91,3 +91,24 @@ run;
 
 proc surveyselect data=smap1 method=srs n=50 out= samp2 seed=0320;
 run;
+
+data ex1;
+input child $ y w;
+cards;
+1 0 100
+2 4 100
+3 2 100 
+4 3 100
+5 2 100
+6 0 100
+7 3 100 
+8 4 100
+9 1 100
+10 1 100
+;
+run;
+
+proc surveymeans data=ex1 total=1000 sum; /*총계 구하기*/
+var y; 
+weight w;
+run;
