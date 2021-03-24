@@ -33,6 +33,46 @@ input idno $ name $ team $ strtwght endwght;
 run;
 
 proc import datafile="C:\Users\OWNER\Downloads\data.csv"
+
+data ex;  /*ex data 생성 */
+input id $ y;
+cards; 
+1 33.5
+2 32
+3 52
+4 43
+5 40
+6 45
+7 42.5
+8 39
+9 41
+;
+run;
+
+proc surveymeans data=ex total= 484; /*total */
+var y; 
+run;
+
+data ex1;
+input child $ y;
+cards;
+1 0
+2 4
+3 2 
+4 3
+5 2
+6 0
+7 3
+8 4
+9 1 
+10 1
+;
+run;
+
+proc surveymeans data=ex1 total=1000; /*평균 충치의 개수를 추정하고, 오차의 한계를 설정 */
+var y; 
+run;
+
 out=KYH.data_csv dbms=csv replace;
 run;
 
