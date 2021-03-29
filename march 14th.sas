@@ -112,3 +112,44 @@ proc surveymeans data=ex1 total=1000 sum; /*총계 구하기*/
 var y; 
 weight w;
 run;
+
+
+
+data ex43; /*모집단 비율추 정*/
+input id $ x @@; /*@@ 하면 데이터를 열로 입력가능함*/
+cards;
+1 1 2 1 
+3 1 
+4 1
+5 1
+6 1
+7 1
+8 1
+9 1
+10 1
+11 1
+12 1
+13 1
+14 1
+15 1
+16 1
+17 1
+18 1
+19 1
+20 1
+21 1
+22 1
+23 1
+24 1
+25 1
+26 0
+27 0
+28 0
+29 0
+30 0
+;
+run; 
+
+proc surveymeans data=ex43 total=300; /*total value 에서 계산*/
+var x; 
+run;
