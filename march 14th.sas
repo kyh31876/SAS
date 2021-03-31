@@ -153,3 +153,25 @@ run;
 proc surveymeans data=ex43 total=300; /*total value 에서 계산*/
 var x; 
 run;
+
+
+
+data pop;  /*가중치는 50,50 */
+do id=1 to 1000;
+if 1<=id<=500 then group=1;
+else if id>=501 then group=2;
+output;
+end;
+run;
+
+proc surveyselect data=pop method=srs n=10 out=strata seed=0409/*각층에서 10개*/
+strata group;
+run;
+
+
+proc surveyselect data=pop method=srs n=(10 20) out=strata seed=0409/*그룹1에서 10 2에서 20*/
+strata group;
+run;
+proc surveyselect data=pop method=srs samprate =(0.01 0.02) out=strata seed=0409/*그룹1에서 0.01 그룹2에서 0.02*/
+strata group;
+run;
