@@ -175,3 +175,64 @@ run;
 proc surveyselect data=pop method=srs samprate =(0.01 0.02) out=strata seed=0409/*그룹1에서 0.01 그룹2에서 0.02*/
 strata group;
 run;
+
+data strt1  /*층화추출 모평균 추정 */
+input area $ y @@;
+cards;
+A 35 A 43 A 36 A 39 A 28 A 28 A 29 A 25 A 38 A 27 A 26 A 32 A 29 A 40 A 35 A 41 A 37 A 31 A 45 A 34 B 37 B 15 B 4 B 41 B 49 B 25 B 10 B 30 C 8 C 14 C 12 C 15 C 30 C 32 C 21 C 20 C 34 C 7 C 11 C 24
+;
+run;
+
+data strt2;
+set strt1;
+if area ='A' then prob=20/155;
+else if area='B' then prob = 8/62;
+else if are='C' then prob = 12/93;
+w=1/prob;
+run;
+
+data strt_total /*모집단 만들기 */
+input area $ _total_;
+cards;
+A 155 
+B 62 
+C 93
+;
+run;
+
+proc surveymeans data=strt2  total= strt_total 
+var y;
+strata area; /*층화변수 주기*/
+weight w;/*가중치 주기 */
+domain area; /*지역별 변수추가 */
+run;
+
+data st1; 
+input area $ y@@;
+cards; 
+A 35 A 43 A 39 A 28 A 28 A 29 A 25 A 38 A 27 B 27 B 15 B 4 B 41 B 30 C 8 C 14 C 12 C 15 C 30 C 32 C 21 C 20 C 11 C 24
+;
+run;
+
+data st2;
+set st1;
+if area ='A' then prob=10/150;
+else if area='B' then prob = 5/60;
+else if area='C' then prob = 10/90;
+w=1/prob;
+run;
+
+data st_total /*모집단 만들기 */
+input area $ _total_; /*total 은 __ 를 앞과뒤에 써야됨 */
+cards;
+A 150
+B 60
+C 90
+;
+run;
+
+proc surveymeans data=st2  total=st_total;
+var y;
+strata area;
+weight w;
+run;
