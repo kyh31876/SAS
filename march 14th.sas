@@ -272,29 +272,30 @@ run;
 
 
 data a_1; /*5.16문제*/
-input people $ y;
+input people $ y@@;
 cards;
-A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 0 A 0 A 0 A 0 A 0 A 0
-B 1 B 1 B 1 B 1 B 1 B 1 B 1 B 1 B 1 B 1 B 0 B 0 B 0 B 0 B 0 B 0  
+A 1 A 1 A 1 A 1 A 1 A 1 A 0 A 0 A 0 A 0 A 0 A 0 A 0 A 0
+B 1 B 1 B 1 B 1 B 1 B 1 B 0 B 0 B 0 B 0 B 0 B 0 B 0 B 0 B 0 B 0
 ;
 run;
 
 data a_2;
 set a_1;
-if people= 'A' then prob=8/14;
-else if people='B' then prob=10/18;
+if people= 'A' then prob=20/800;
+else if people='B' then prob=10/200;
 w=1/prob;
 run;
 
 data a_total;
 input people $ _total_;
 cards;
-A 14
-B 18
+A 800
+B 200
 ;
 run; 
 proc surveymeans data=a_2 total=a_total sum;
 var y;
 weight w;
 strata people;
+domain people;
 run;
