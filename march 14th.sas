@@ -236,3 +236,65 @@ var y;
 strata area;
 weight w;
 run;
+
+
+data s_1;
+input area $ y@@;
+cards; 
+A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A  1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 0 A 0 A 0 A 0
+B 1 B 1 B 0 B 0 B 0 B 0 B 0 B 0
+C 1 C 1 C 1 C 1 C 1 C 1 C 1 C 1 C 1 C 0 C 0 C 0 C 0 C 0 C 0
+;
+run;
+
+data s_2;
+set s_1;
+if area = 'A' then prob=20/155;
+else if area='B' then prob= 8/62;
+else if area='C' then prob = 12/93;
+w=1/prob;
+run;
+data st_t 
+input area $_total_;
+cards;
+A 155 
+B 62 
+C 93
+;
+run;
+
+proc surveymeans data=s_2 total=st_t sum; 
+var y;
+*domain area; 
+weight w;
+strata area;
+run;
+
+
+data a_1; /*5.16문제*/
+input people $ y;
+cards;
+A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 1 A 0 A 0 A 0 A 0 A 0 A 0
+B 1 B 1 B 1 B 1 B 1 B 1 B 1 B 1 B 1 B 1 B 0 B 0 B 0 B 0 B 0 B 0  
+;
+run;
+
+data a_2;
+set a_1;
+if people= 'A' then prob=8/14;
+else if people='B' then prob=10/18;
+w=1/prob;
+run;
+
+data a_total;
+input people $ _total_;
+cards;
+A 14
+B 18
+;
+run; 
+proc surveymeans data=a_2 total=a_total sum;
+var y;
+weight w;
+strata people;
+run;
