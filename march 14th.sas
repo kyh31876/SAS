@@ -207,6 +207,8 @@ weight w;/*가중치 주기 */
 domain area; /*지역별 변수추가 */
 run;
 
+
+/*평균추정값고 오차한계a*/
 data st1; 
 input area $ y@@;
 cards; 
