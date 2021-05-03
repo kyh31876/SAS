@@ -301,3 +301,45 @@ weight w;
 strata people;
 domain people;
 run;
+
+data pop;
+do id =1 to 1000;
+output;
+end;
+run; 
+
+proc surveyselect data= pop method=sys  n=100 out=systematic seed=0409; /*100 명중 100명 을 뽑는다*/
+run;
+
+proc surveyselect data=pop method=sys n=200 out=systematic seed=0409;
+run;
+
+data ex7_1; /* */
+input id number @@;
+cards; 
+1 122.2 2 3.2 3 98.6 4 137.5 5 73.6 6 69.2 7 207.2 8 36.5 9 149.2 10 14.1 
+11 0.8 12 60 13 69.1 14 25.4 15 128.5 16 146.4 17 104.8 18 450.5 19 282.4 20 90.7
+;
+run;
+
+proc sgscatter data=ex7_1;
+plot number*id;
+run;
+
+
+
+data ex7_1;
+input year cost @@;
+cards;
+1 34.9 2 26.9 3 25 4 23 5 29.8 6 32.5 7 32.8 8 33.5 9 37 10 40 11 26 12 32 13 34 15 29 16 29 17 30 18 49 19 46 20 31
+;
+run;
+ 
+proc sgscatter data=ex_2;
+plot=numer;
+run;
+
+
+proc surveymeans data=ex7_1 total=140; /*추정오차 한계*/
+var number;
+run;
