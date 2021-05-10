@@ -343,3 +343,94 @@ run;
 proc surveymeans data=ex7_1 total=140; /*추정오차 한계*/
 var number;
 run;
+
+
+data ex7_2;
+set ex7_1;
+w=140/20;
+run;
+
+proc surveymeans data=ex7_2 total=140 sum; /*총합계 추정*/
+var number;
+weight w;
+run;
+
+
+data ex7_3;
+input id $ y;
+cards;
+7 1
+17 1
+27 0
+37 0
+47 1
+57 1
+67 0
+87 1
+97 0
+;
+run;
+
+data ex7_3_1;
+set ex7_3;
+w=1/10;
+run;
+
+proc surveymeans data=ex7_3_1 total=100;
+var y;
+weight w;
+run;
+
+
+
+ data ex7_4;
+ input number oz;
+ cards;
+ 1 12 
+ 2 11.91 
+ 3 11.87 
+ 4 12.05
+ 5 11.75
+ 6 11.85
+ 7 11.97
+ 8 11.98
+ 9 12.01
+10 11.87
+11 11.93 
+12 11.98
+13 12.01
+14 12.03
+15 11.98
+16 11.91
+17 11.95
+18 11.87
+19 12.03
+20 11.98
+21 11.87
+22 11.93
+23 11.97
+24 12.05
+25 12.01
+26 12.00
+27 11.90
+28 11.94
+29 11.93
+30 12.02 
+31 11.80
+32 11.83
+33 11.88
+34 11.89
+35 12.05
+36 12.04
+;
+run;
+
+data ex7_4_1;
+set ex7_4;
+w=1/50;
+run;
+
+proc surveymeans data=ex7_4_1 total=1800;
+var oz;
+weight w;
+run;
