@@ -435,3 +435,35 @@ var oz;
 weight w;
 run;
 
+data ex7_8;
+input student  consume @@;
+cards;
+1 30 2 22 3 10 4 62 5 28 6 31 7 40 8 29 9 17 10 51 
+11 29 12 21 13 13 14 15 15 23 16 32 17 14 18 29 19 48 20 50 
+21 9 22 15 23 6 24 93 25 21 26 20 27 13 28 12 29 29 30 38
+;
+run;
+
+data ex7_8_1;
+set ex7_8;
+w=1/150;
+run; 
+proc surveymeans data=ex7_8_1 total=4500 sum;
+var consume;
+weight w;
+run;
+
+
+data ex7_9;
+set Tmp1.Temps;
+w=30/88;
+run;
+
+proc surveyselect data=ex7_9 method=sys n=30 out=systematic seed=2171915;
+run;
+
+proc surveymeans data=ex7_9 total=88 SEED=21719159;
+var M_P;
+weight w;
+run;
+
