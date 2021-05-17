@@ -467,3 +467,35 @@ var M_P;
 weight w;
 run;
 
+proc surveyselect data=ex7_9 method=sys n=10 out=systematic seed=21719159;
+run;
+
+data pop;
+do id=1 to 960;
+output;
+end;
+run;
+
+proc surveyselect data=pop method=sys n=6 rep=10 out=r_systematic seed=0409;   /*표본 6을 10번반복 */
+run;
+
+data pop1;
+do id=1 to 2000;
+output;
+end;
+run;
+
+proc surveyselect data=pop1 method=sys n=100 rep=20 seed=20210517 out=r_systematic; /*100개의 표본을 5번마다 추출 */
+run;
+
+
+data ex7_6;
+do id=1 to 400;
+output;
+end; 
+run;
+
+proc surveyselect data=ex7_6 method=sys n=8 rep=50 out=r_sys;
+run;
+
+
