@@ -498,4 +498,20 @@ run;
 proc surveyselect data=ex7_6 method=sys n=8 rep=50 out=r_sys;
 run;
 
+proc surveymeans data =ex7_6 rate=0.2;/*반복 계통추출일떄는 weight 값필요*/
+cluster number; /*반복번호*/
+var y;
+weight w;
+run;
+data r_systematic2;
+set r_systematic;
+w=88/30;
+run;
+
+proc surveymeans data =r_systematic2 rate=0.2;/*반복 계통추출일떄는 weight 값필요*/
+cluster Replicate; /*반복번호*/
+var M_T M_P;
+weight w;
+run;
+
 
