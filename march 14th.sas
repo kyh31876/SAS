@@ -616,8 +616,43 @@ cards;
 ;
 run;
 
+data ex8_4;
+input cluster $ m y ;
+ytotal=60*y;
+cards;
+1 55 2210
+2 60 2390
+3 63 2430
+4 58 2380
+5 71 2760
+6 78 3110
+7 69 2780
+8 58 2370
+9 52 1990
+10 71 2810
+11 73 2930
+12 64 2470
+13 69 2830
+14 58 2370
+15 63 2390
+16 75 2870
+17 78 3210
+18 51 2430
+19 67 2730
+20 70 2880
+;
+run;
+
+
 proc surveymeans data=ex8_4 total =5000;
-ratio ytotal/m;
+ratio y/m;
 ; 
 run;
 
+proc surveymeans data=ex8_4 total=60 sum;
+ratio ytotal/m;
+
+proc surveymeans data=ex8_5 total=60 sum;
+ration ytotal;
+; 
+run;
